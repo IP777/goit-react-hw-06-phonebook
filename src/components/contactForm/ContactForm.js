@@ -4,9 +4,9 @@ import { validateAll, validations } from "indicative/validator";
 import faker from "faker";
 import shortid from "shortid";
 //----------------------------
-import style from "./AddContactForm.module.css";
-import InputTitle from "./../inputTitle/InputTitle";
-import ErrorNotification from "./../errorNotification/ErrorNotification";
+import style from "./ContactForm.module.css";
+import InputTitle from "../inputTitle/InputTitle";
+import ErrorNotification from "../errorNotification/ErrorNotification";
 import AlertWindow from "../alertWindow/AlertWindow";
 
 //---Доп функции валидатора---
@@ -23,7 +23,7 @@ const messages = {
 };
 //----------------------------
 
-export default class AddContactForm extends Component {
+export default class ContactForm extends Component {
 	state = {
 		name: "",
 		number: "",
