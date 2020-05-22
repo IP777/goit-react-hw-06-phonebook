@@ -2,13 +2,15 @@ import React, { Component } from "react";
 import { validateAll, validations } from "indicative/validator";
 //Валидатор   https://indicative.adonisjs.com/validations/master/array
 import faker from "faker";
+import shortid from "shortid";
 //----------------------------
 import style from "./AddContactForm.module.css";
 import InputTitle from "./../inputTitle/InputTitle";
 import ErrorNotification from "./../errorNotification/ErrorNotification";
+import AlertWindow from "../alertWindow/AlertWindow";
 
+//---Доп функции валидатора---
 const rules = {
-	//regex -регулярка на наличие букв a-z, A-Z, а-я, А-Я
 	name: [validations.required(), validations.regex(["^[a-zA-Zа-яА-Я]+"])],
 	number: "required|string",
 };
@@ -19,12 +21,31 @@ const messages = {
 	"name.regex":
 		"Username contains invalid characters, please use only Latin or Cyrillic letters",
 };
+//----------------------------
 
 export default class AddContactForm extends Component {
 	state = {
 		name: "",
 		number: "",
 		errors: null,
+		alertWindow: false,
+	};
+
+	addContact = (contact) => {
+		const { name } = contact;
+		const findContact = this.props.contacts.find((i) => i.name === name);
+
+		if (findContact) {
+			this.setState({ alertWindow: true });
+		} else {
+			const contactToAdd = {
+				...contact,
+				id: shortid.generate(),
+				newItem: true,
+			};
+
+			this.props.addContact(contactToAdd);
+		}
 	};
 
 	handleSubmit = (evt) => {
@@ -33,7 +54,7 @@ export default class AddContactForm extends Component {
 
 		validateAll({ name, number }, rules, messages)
 			.then(() => {
-				this.props.addContact({ name, number });
+				this.addContact({ name, number });
 				this.reset();
 			})
 			.catch((errors) => {
@@ -65,7 +86,7 @@ export default class AddContactForm extends Component {
 	};
 
 	render() {
-		const { name, number, errors } = this.state;
+		const { name, number, errors, alertWindow } = this.state;
 
 		return (
 			<>
@@ -100,6 +121,10 @@ export default class AddContactForm extends Component {
 						</button>
 					</div>
 				</form>
+				<AlertWindow
+					alert={alertWindow}
+					switchAlert={(e) => this.setState({ alertWindow: e })}
+				/>
 			</>
 		);
 	}

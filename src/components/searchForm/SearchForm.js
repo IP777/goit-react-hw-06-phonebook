@@ -4,18 +4,17 @@ import InputTitle from "./../inputTitle/InputTitle";
 import style from "./SearchForm.module.css";
 import popTransition from "./../transition/pop.module.css";
 
-const SearchForm = ({ value, handleChange, toggle }) => (
+const SearchForm = ({ contacts, filteredString }) => (
 	<CSSTransition
 		timeout={250}
 		classNames={popTransition}
-		in={toggle}
+		in={contacts.length > 2 ? true : false}
 		unmountOnExit
 	>
 		<div className={style.wrapper}>
 			<InputTitle
 				title="Find contacts by name"
-				value={value}
-				handleChange={handleChange}
+				handleChange={(e) => filteredString(e.target.value)}
 				placeholder="Search something...."
 			/>
 		</div>
