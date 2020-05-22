@@ -3,7 +3,6 @@ import { devToolsEnhancer } from "redux-devtools-extension";
 import { rootReducer } from "./contactReducer";
 import persistState from "redux-localstorage";
 //https://www.npmjs.com/package/redux-localstorage#configslicer
-console.log(persistState);
 
 const enhancer = compose(devToolsEnhancer(), persistState());
 
