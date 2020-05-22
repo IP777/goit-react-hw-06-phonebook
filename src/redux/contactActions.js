@@ -15,8 +15,3 @@ export const addFilter = (string) => ({
 	type: Type.ADD_FILTER,
 	payload: string,
 });
-
-export const alertToggle = (bool) => ({
-	type: Type.ALERT_TOGGLE,
-	payload: bool,
-});
