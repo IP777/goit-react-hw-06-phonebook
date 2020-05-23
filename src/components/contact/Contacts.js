@@ -3,6 +3,7 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 //------------------------------------------
 import style from "./Contacts.module.css";
 import slideTransition from "./../transition/slide.module.css";
+import ContactItemContainer from "./contactItem/ContactItemContainer";
 
 //Вспомогательная функция для фильтрации контактов
 //->возвращает отфильтрованый массив
@@ -12,30 +13,19 @@ const filterContacts = (contacts, filter) => {
 	);
 };
 
-const Contacts = ({ contacts, filter, onRemoveContact }) => {
-	return (
-		<TransitionGroup component="ul" className={style.list}>
-			{filterContacts(contacts, filter).map(({ id, name, number }) => (
-				<CSSTransition
-					key={id}
-					timeout={250}
-					classNames={slideTransition}
-					unmountOnExit
-				>
-					<li className={style.cardWrapper}>
-						{name}
-						<span>{number}</span>
-						<button
-							onClick={() => onRemoveContact(id)}
-							className={style.cardBtn}
-						>
-							&#10006;
-						</button>
-					</li>
-				</CSSTransition>
-			))}
-		</TransitionGroup>
-	);
-};
+const Contacts = ({ contacts, filter }) => (
+	<TransitionGroup component="ul" className={style.list}>
+		{filterContacts(contacts, filter).map(({ id, name, number }) => (
+			<CSSTransition
+				key={id}
+				timeout={250}
+				classNames={slideTransition}
+				unmountOnExit
+			>
+				<ContactItemContainer id={id} name={name} number={number} />
+			</CSSTransition>
+		))}
+	</TransitionGroup>
+);
 
 export default Contacts;

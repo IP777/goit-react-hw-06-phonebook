@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import * as contactActions from "./../../redux/contactActions";
+//import * as contactActions from "./../../redux/contactActions";
 import Contacts from "./Contacts";
 
 const mapStateToProps = (state) => ({
@@ -7,8 +7,8 @@ const mapStateToProps = (state) => ({
 	filter: state.filter,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-	onRemoveContact: (id) => dispatch(contactActions.removeContact(id)),
-});
+// const mapDispatchToProps = (dispatch) => ({
+// 	onRemoveContact: (id) => dispatch(contactActions.removeContact(id)),
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Contacts);
+export default connect(mapStateToProps)(Contacts);
