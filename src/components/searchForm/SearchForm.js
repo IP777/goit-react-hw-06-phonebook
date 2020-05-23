@@ -4,11 +4,11 @@ import InputTitle from "./../inputTitle/InputTitle";
 import style from "./SearchForm.module.css";
 import popTransition from "./../transition/pop.module.css";
 
-const SearchForm = ({ contacts, filteredString }) => (
+const SearchForm = ({ contacts, filter, filteredString }) => (
 	<CSSTransition
 		timeout={250}
 		classNames={popTransition}
-		in={contacts.length > 2 ? true : false}
+		in={contacts.length > 2 || filter ? true : false}
 		unmountOnExit
 	>
 		<div className={style.wrapper}>
